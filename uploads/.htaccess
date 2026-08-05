@@ -1,0 +1,14 @@
+# Disable engine execution of scripts in the upload folder
+<FilesMatch "\.(php|php5|phtml|pl|py|jsp|asp|sh|cgi)$">
+    Order Denied,Allow
+    Deny from all
+</FilesMatch>
+
+# Prevent script interpreters from parsing uploads
+RemoveHandler .php
+RemoveType .php
+ForceType application/octet-stream
+<FilesMatch "\.(jpe?g|png|webp|gif|pdf)$">
+    ForceType text/html
+    ForceType none
+</FilesMatch>

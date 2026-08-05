@@ -1,0 +1,64 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Prevent Directory Browsing
+Options -Indexes
+
+# Prevent access to .env, sql files, or config files directly
+RewriteRule ^(schema\.sql|\.git|config/.*|composer\..*)$ - [F,L]
+
+# ==========================================
+# PUBLIC PAGES REWRITE RULES
+# ==========================================
+
+# Homepage (Must be evaluated before directory checks to avoid 403 Forbidden on root)
+RewriteRule ^$ public/index.php [L,QSA]
+
+# Exclude existing files, directories, and symbolic links from rewrite rules
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Product List
+RewriteRule ^products/?$ public/products.php [L,QSA]
+
+# Product Details (e.g., /product/some-product-slug)
+RewriteRule ^product/([^/]+)/?$ public/product.php?slug=$1 [L,QSA]
+
+# Category Detail (e.g., /category/some-category-slug)
+RewriteRule ^category/([^/]+)/?$ public/category.php?slug=$1 [L,QSA]
+
+# Contact Page
+RewriteRule ^contact/?$ public/contact.php [L,QSA]
+
+# ==========================================
+# ADMIN PAGES REWRITE RULES
+# ==========================================
+
+# Admin Dashboard
+RewriteRule ^admin/?$ admin/dashboard.php [L,QSA]
+
+# Admin Login
+RewriteRule ^admin/login/?$ admin/login.php [L,QSA]
+
+# Admin Logout
+RewriteRule ^admin/logout/?$ admin/logout.php [L,QSA]
+
+# Admin Products CRUD
+RewriteRule ^admin/products/?$ admin/products.php [L,QSA]
+
+# Admin Categories CRUD
+RewriteRule ^admin/categories/?$ admin/categories.php [L,QSA]
+
+# Admin Brands CRUD
+RewriteRule ^admin/brands/?$ admin/brands.php [L,QSA]
+
+# Admin Settings Page
+RewriteRule ^admin/settings/?$ admin/settings.php [L,QSA]
+
+# ==========================================
+# API REWRITE RULES
+# ==========================================
+RewriteRule ^api/products/?$ api/products.php [L,QSA]
+RewriteRule ^api/categories/?$ api/categories.php [L,QSA]
+RewriteRule ^api/auth/?$ api/auth.php [L,QSA]
