@@ -44,7 +44,7 @@ module.exports = defineConfig({
 
   /* Run local dev server before starting the tests */
   webServer: {
-    command: '"C:\\xampp\\php\\php.exe" -S localhost:8000 router.php',
+    command: 'php -S localhost:8000 router.php',
     url: 'http://localhost:8000',
     reuseExistingServer: true,
     timeout: 10 * 1000, // 10 seconds timeout for startup
